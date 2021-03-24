@@ -17,7 +17,7 @@ steps:
     displayName: 'Configure zlib'
   - task: CMake@1
     inputs:
-      cmakeArgs: --build $(Build.BinariesDirectory)/zlib --target install
+      cmakeArgs: --build $(System.DefaultWorkingDirectory) --target install
     displayName: 'Install zlib'
   - publish: $(Build.StagingDirectory)/zlib-windows-x64
     artifact: zlib-windows-x64
