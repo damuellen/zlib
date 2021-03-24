@@ -13,12 +13,11 @@ steps:
   - task: CMake@1
     inputs:
       workingDirectory: $(System.DefaultWorkingDirectory)
-      cmakeArgs: -G Ninja -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INSTALL_PREFIX=$(System.DefaultWorkingDirectory)/usr -DBUILD_SHARED_LIBS=NO -DBUILD_TESTING=NO -DCMAKE_POSITION_INDEPENDENT_CODE=YES
+      cmakeArgs: -G Ninja $(Build.SourcesDirectory) -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INSTALL_PREFIX=$(install.directory)/usr -DBUILD_SHARED_LIBS=NO -DBUILD_TESTING=NO -DCMAKE_POSITION_INDEPENDENT_CODE=YES
     displayName: 'Configure zlib'
   - task: CMake@1
     inputs:
-      workingDirectory: $(System.DefaultWorkingDirectory)
-      cmakeArgs: --build --target install
+      cmakeArgs: --build $(Build.BinariesDirectory)/zlib --target install
     displayName: 'Install zlib'
   - publish: $(Build.StagingDirectory)/zlib-windows-x64
     artifact: zlib-windows-x64
